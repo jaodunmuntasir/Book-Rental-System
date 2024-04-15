@@ -16,7 +16,7 @@ class Books extends Model
         'pages',
         'isbn',
         'description',
-        'genres',
+        'genre',
         'in_stock',
     ];
 }

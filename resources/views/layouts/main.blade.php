@@ -26,8 +26,8 @@
                                 Books
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownBooks">
-                                <li><a class="dropdown-item" href="#">Add New Book</a></li>
-                                <li><a class="dropdown-item" href="#">Book Lists</a></li>
+                                <li><a class="dropdown-item" href="/books/create">Add New Book</a></li>
+                                <li><a class="dropdown-item" href="/books">Book Lists</a></li>
                             </ul>
                         </li>
 

@@ -23,7 +23,7 @@ class BooksFactory extends Factory
             'pages' => $this->faker->numberBetween(100, 1000),
             'isbn' => $this->faker->isbn13(),
             'description' => $this->faker->paragraph(),
-            'genres' => $this->faker->words(3, true),
+            'genre' => $this->faker->words(1, true),
             'in_stock' => $this->faker->numberBetween(0, 50),
         ];
     }

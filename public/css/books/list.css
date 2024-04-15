@@ -1,0 +1,36 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f8f9fa;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.card-header {
+    background: #0d6efd; /* A blue shade that matches Bootstrap's primary blue */
+    border-bottom: none;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    border-top: none;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f4f4f4;
+}
+
+
+/* If you want striped rows for the table */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.table th, .table td {
+    font-size: 12px;
+}
+
