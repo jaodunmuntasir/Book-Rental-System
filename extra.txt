@@ -1,0 +1,19 @@
+"dev": "vite",
+"build": "vite build"
+
+"alpinejs": "^3.7.0",
+        "autoprefixer": "^10.4.2",
+        "postcss": "^8.4.5",
+        "postcss-import": "^14.0.2",
+        "postcss-loader": "^6.2.0",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.49.8",
+        "sass-loader": "^12.2.0"
+
+"dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix hot",
+        "prod": "npm run production",
+        "production": "mix --production"
