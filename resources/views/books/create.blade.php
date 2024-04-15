@@ -35,13 +35,26 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="published_date">Published Date</label>
-                        <input type="date" name="published_date" id="published_date" class="form-control" required>
+                        <label for="release_date">Release Date</label>
+                        <input type="date" name="release_date" id="release_date" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea name="description" id="description" class="form-control" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="pages">Pages</label>
+                        <input type="number" name="pages" id="pages" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" name="isbn" id="isbn" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="in_stock">In Stock</label>
+                        <input type="number" name="in_stock" id="in_stock" class="form-control" required>
+                    </div>
+                    
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Add Book</button>
                     </div>
