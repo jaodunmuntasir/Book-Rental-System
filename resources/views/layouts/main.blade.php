@@ -17,36 +17,71 @@
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-16">
-                <!-- Left Navigation -->
-                <div class="flex-1 flex items-center justify-start">
-                    <div class="flex-shrink-0">
-                        <a href="/" class="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    </div>
-                    <div class="hidden sm:block sm:ml-6">
-                        <div class="flex space-x-4">
-                            <a href="/books" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Browse Books</a>
-                            <a href="/rentals" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Rentals</a>
-                        </div>
-                    </div>
-                </div>
+    <!-- left sidebar -->
+    <div class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+        <!-- Book -->
+        <ul class="space-y-2">
+            <li>
+                <button class="font-bold w-full text-left" onclick="toggleDropdown('book-menu')">Book</button>
+                <ul id="book-menu" class="hidden pl-4 space-y-1">
+                    <li><a href="#" class="hover:text-gray-300">Add New Book</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Book Lists</a></li>
+                </ul>
+            </li>
 
-                <!-- Right Navigation -->
-                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <a href="/account" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Account</a>
-                    <a href="/support" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Support</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+            <!-- Genre -->
+            <li>
+                <button class="font-bold w-full text-left" onclick="toggleDropdown('genre-menu')">Genre</button>
+                <ul id="genre-menu" class="hidden pl-4 space-y-1">
+                    <li><a href="#" class="hover:text-gray-300">Add New Genre</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Genre Lists</a></li>
+                </ul>
+            </li>
+
+            <!-- Rentals -->
+            <li>
+                <button class="font-bold w-full text-left" onclick="toggleDropdown('rentals-menu')">Rentals</button>
+                <ul id="rentals-menu" class="hidden pl-4 space-y-1">
+                    <!-- Sub-menu example -->
+                    <li>
+                        <button class="w-full text-left" onclick="toggleDropdown('rental-requests-menu')">Rental Requests</button>
+                        <ul id="rental-requests-menu" class="hidden pl-4 space-y-1">
+                            <li><a href="#" class="hover:text-gray-300">Pending</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Approved</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Rejected</a></li>
+                        </ul>
+                        <button class="w-full text-left" onclick="toggleDropdown('rentals-list-menu')">Rentals List</button>
+                        <ul id="rentals-list-menu" class="hidden pl-4 space-y-1">
+                            <li><a href="#" class="hover:text-gray-300">Ongoing Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Completed Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Due Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">View All Rentals</a></li>
+                        </ul>
+                        <button class="w-full text-left" onclick="toggleDropdown('renter-requests-menu')">Renter Requests</button>
+                        <ul id="renter-requests-menu" class="hidden pl-4 space-y-1">
+                            <li><a href="#" class="hover:text-gray-300">Pending</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Approved</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Rejected</a></li>
+                        </ul>
+                        <button class="w-full text-left" onclick="toggleDropdown('renters-list-menu')">Renters List</button>
+                        <ul id="renters-list-menu" class="hidden pl-4 space-y-1">
+                            <li><a href="#" class="hover:text-gray-300">Ongoing Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Completed Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">Due Rentals</a></li>
+                            <li><a href="#" class="hover:text-gray-300">View All Renters</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
 
     <!-- Main Content -->
-    <main>
+    <!-- <main> -->
         @yield('content')
-    </main>
+    <!-- </main> -->
 
     <!-- Footer -->
     <footer class="bg-white shadow mt-12">
@@ -56,6 +91,20 @@
             </p>
         </div>
     </footer>
+
+    <!-- <script src="resources\js\script.js"></script> -->
+    <!-- <script src="{{ asset('js/script.js') }}"></script> -->
+
+    <script>
+        function toggleDropdown(menuId) {
+            var element = document.getElementById(menuId);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+    </script>
 
 </body>
 </html>
