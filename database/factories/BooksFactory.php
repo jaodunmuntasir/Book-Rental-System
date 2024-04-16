@@ -25,6 +25,8 @@ class BooksFactory extends Factory
             'description' => $this->faker->paragraph(),
             'genre' => $this->faker->words(1, true),
             'in_stock' => $this->faker->numberBetween(0, 50),
+            'cover' => $this->faker->imageUrl(),
+            'language' => $this->faker->languageCode(),
         ];
     }
 }

@@ -30,6 +30,8 @@ class StoreBooksRequest extends FormRequest
             'isbn' => 'required|alpha_num',
             'genre' => 'required|max:255',
             'in_stock' => 'required|integer',
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'language' => 'required|max:255',
         ];
     }
 }

@@ -38,6 +38,13 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="cover_image" class="form-label">Cover Image URL</label>
+                                    <input type="text" name="cover_image" id="cover_image" class="form-control" placeholder="http://example.com/image.jpg" required>
+                                    @error('cover_image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <!-- Right Column -->
                             <div class="col-md-6">
@@ -68,6 +75,13 @@
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
+                                    <label for="language" class="form-label">Language</label>
+                                    <input type="text" name="language" id="language" class="form-control" value="{{ old('language') }}" placeholder="Eng" required>
+                                    @error('language')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-3">
                                     <label for="pages" class="form-label">Pages</label>
                                     <input type="number" name="pages" id="pages" class="form-control" value="{{ old('pages') }}" required>
                                     @error('pages')
@@ -90,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Book</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
                         <a href="{{ route('books.create') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>

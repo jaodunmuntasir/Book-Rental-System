@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('genre');
             $table->integer('in_stock');
+            $table->string('cover');
+            $table->string('language');
 
             $table->timestamps();
         });

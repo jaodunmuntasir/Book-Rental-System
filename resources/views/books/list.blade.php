@@ -17,28 +17,45 @@
                 <div class="card-body p-0">
                     <table class="table table-hover mb-0">
                         <thead class="thead-light">
-                            <tr>
+                            <tr style=text-align:center>
+                                <th>Cover</th>
                                 <th>Title</th>
                                 <th>Author</th>
+                                <th>Language</th>
                                 <th>Genre</th>
-                                <th>Release Date</th>
-                                <th>Description</th>
                                 <th>Pages</th>
-                                <th>ISBN</th>
+                                <th>Release Date</th>
+                                <!-- <th>Description</th> -->
+                                <!-- <th>ISBN</th> -->
                                 <th>In Stock</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($books as $book)
-                            <tr>
+                            <tr style=text-align:center>
+                                <td><img src="{{ $book->cover }}" alt="Cover" class="book-cover"></td>
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
+                                <td>{{ $book->language }}</td>
                                 <td>{{ $book->genre }}</td>
-                                <td>{{ $book->release_date }}</td>
-                                <td>{{ $book->description }}</td>
                                 <td>{{ $book->pages }}</td>
-                                <td>{{ $book->isbn }}</td>
+                                <td>{{ $book->release_date }}</td>
+                                <!-- <td>{{ $book->description }}</td>                                -->
+                                <!-- <td>{{ $book->isbn }}</td> -->
                                 <td>{{ $book->in_stock }}</td>
+                                <td>
+                                    <a href="/books/ {{ $book -> id }}" class="btn btn-custom-size btn-primary">View</a>
+                                    <a href="/books/ {{ $book -> id }}/edit" class="btn btn-custom-size btn-primary">Edit</a>
+                                    <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
+                                    <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
+                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-custom-size btn-danger delete-btn">Delete</button>
+                                    </form>
+
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -59,5 +76,6 @@ $(document).ready(function() {
     $('.table').DataTable();
 });
 </script>
+
 
 @endsection

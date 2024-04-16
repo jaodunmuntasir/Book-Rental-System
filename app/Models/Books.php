@@ -18,5 +18,7 @@ class Books extends Model
         'description',
         'genre',
         'in_stock',
+        'cover',
+        'language',
     ];
 }
