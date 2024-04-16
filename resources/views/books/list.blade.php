@@ -46,7 +46,7 @@
                                 <td>{{ $book->in_stock }}</td>
                                 <td>
                                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-custom-size btn-primary">View</a>
-                                    <a href="/books/ {{ $book -> id }}/edit" class="btn btn-custom-size btn-primary">Edit</a>
+                                    <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
                                     <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
                                     <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
                                     <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">

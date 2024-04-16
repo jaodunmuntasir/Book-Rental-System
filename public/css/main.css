@@ -40,3 +40,6 @@ body {
     width: 50%; /* Adjust size as needed */
     height: auto;
 }
+.company-name {
+    margin-top: 7px;
+}

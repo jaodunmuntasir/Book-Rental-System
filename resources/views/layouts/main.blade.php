@@ -18,7 +18,7 @@
                         <!-- Logo and name at the top of the sidebar -->
                         <div class="sidebar-logo">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
-                            <h4>Admin</h4>
+                            <h4 class="company-name">Admin</h4>
                         </div>
                         <!-- Books Menu -->
                         <li class="nav-item dropdown">
