@@ -41,11 +41,11 @@
                                 <td>{{ $book->genre }}</td>
                                 <td>{{ $book->pages }}</td>
                                 <td>{{ $book->release_date }}</td>
-                                <!-- <td>{{ $book->description }}</td>                                -->
+                                <!-- <td>{{ $book->description }}</td> -->
                                 <!-- <td>{{ $book->isbn }}</td> -->
                                 <td>{{ $book->in_stock }}</td>
                                 <td>
-                                    <a href="/books/ {{ $book -> id }}" class="btn btn-custom-size btn-primary">View</a>
+                                    <a href="{{ route('books.show', $book->id) }}" class="btn btn-custom-size btn-primary">View</a>
                                     <a href="/books/ {{ $book -> id }}/edit" class="btn btn-custom-size btn-primary">Edit</a>
                                     <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
                                     <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
