@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('pages');
             $table->string('isbn');
             $table->text('description');
-            $table->string('genre');
+            // $table->string('genre');
             $table->integer('in_stock');
             $table->string('cover');
             $table->string('language');

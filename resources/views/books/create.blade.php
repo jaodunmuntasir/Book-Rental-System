@@ -3,6 +3,7 @@
 @section('content')
 
 <link rel="stylesheet" href="/css/books/create.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 <div class="container mt-5">
     <div class="row">
@@ -57,20 +58,15 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="genre" class="form-label">Genre</label>
-                                    <select name="genre" id="genre" class="form-control" required>
-                                        <option value="">Select Genre</option>
-                                        <option value="Fiction" {{ old('genre') == 'Fiction' ? 'selected' : '' }}>Fiction</option>
-                                        <option value="Non-Fiction" {{ old('genre') == 'Non-Fiction' ? 'selected' : '' }}>Non-Fiction</option>
-                                        <option value="Science Fiction" {{ old('genre') == 'Science Fiction' ? 'selected' : '' }}>Science Fiction</option>
-                                        <option value="Fantasy" {{ old('genre') == 'Fantasy' ? 'selected' : '' }}>Fantasy</option>
-                                        <option value="Mystery" {{ old('genre') == 'Mystery' ? 'selected' : '' }}>Mystery</option>
-                                        <option value="Thriller" {{ old('genre') == 'Thriller' ? 'selected' : '' }}>Thriller</option>
-                                        <option value="Romance" {{ old('genre') == 'Romance' ? 'selected' : '' }}>Romance</option>
-                                        <option value="Horror" {{ old('genre') == 'Horror' ? 'selected' : '' }}>Horror</option>
-                                        <option value="Biography" {{ old('genre') == 'Biography' ? 'selected' : '' }}>Biography</option>
-                                        <option value="Autobiography" {{ old('genre') == 'Autobiography' ? 'selected' : '' }}>Autobiography</option>
+                                    <select name="genres[]" id="genres" class="form-control" multiple>
+                                        @foreach($genres as $genre)
+                                            <option value="{{ $genre->id }}"
+                                                {{ in_array($genre->id, old('genres', $book->genres->pluck('id')->toArray()) ? 'selected' : '') }}>
+                                                {{ $genre->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-                                    @error('genre')
+                                    @error('genres')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -112,6 +108,19 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#genre').select2({
+        placeholder: "Select genres",
+        allowClear: true
+    });
+});
+</script>
+
 
 @endsection
 

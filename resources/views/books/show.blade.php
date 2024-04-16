@@ -12,7 +12,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $book->title }}</h5>
                     <p class="card-text"><span class="detail-label">Author:</span> {{ $book->author }} </p>
-                    <p class="card-text"><span class="detail-label">Genre:</span> {{ $book->genre }}</p>
+                    <p class="card-text"><span class="detail-label">Genre:</span> 
+                        @foreach($book->genres as $genre)
+                            <span class="badge bg-secondary">{{ $genre->name }}</span>
+                        @endforeach
+                    </p>
                     <p class="card-text"><span class="detail-label">Publish Date:</span> {{ $book->release_date }} </p>
                     <p class="card-text"><span class="detail-label">Number of Pages:</span>  {{ $book->pages }}</p>
                     <p class="card-text"><span class="detail-label">Language:</span> {{ $book->language }} </p>

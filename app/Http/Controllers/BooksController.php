@@ -33,7 +33,8 @@ class BooksController extends Controller
      */
     public function store(StoreBooksRequest $request)
     {
-        Books::create($request->validated());
+        $book = Books::create($request->validated());
+        $book->genres()->sync($request->genres);  // Attach the genres to the book
 
         return redirect()->route('books.index');
     }

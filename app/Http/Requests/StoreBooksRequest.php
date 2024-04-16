@@ -28,10 +28,12 @@ class StoreBooksRequest extends FormRequest
             'release_date' => 'required|date',
             'pages' => 'required|integer',
             'isbn' => 'required|alpha_num',
-            'genre' => 'required|max:255',
+            // 'genre' => 'required|max:255',
             'in_stock' => 'required|integer',
             'cover' => 'required|url',
             'language' => 'required|max:255',
+            'genres' => 'required|array',
+            'genres.*' => 'exists:genres,id'
         ];
     }
 }

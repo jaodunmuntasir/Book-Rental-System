@@ -38,7 +38,11 @@
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
                                 <td>{{ $book->language }}</td>
-                                <td>{{ $book->genre }}</td>
+                                <td>
+                                    @foreach($book->genres as $genre)
+                                        <span class="badge bg-secondary">{{ $genre->name }}</span>
+                                    @endforeach
+                                </td>
                                 <td>{{ $book->pages }}</td>
                                 <td>{{ $book->release_date }}</td>
                                 <!-- <td>{{ $book->description }}</td> -->

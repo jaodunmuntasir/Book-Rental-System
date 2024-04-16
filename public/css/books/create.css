@@ -92,3 +92,8 @@
         margin-bottom: 1rem; /* Add space between columns when they stack */
     }
 }
+
+.select-multiple {
+    height: auto;
+    min-height: 100px; /* Adjust based on your design needs */
+}
