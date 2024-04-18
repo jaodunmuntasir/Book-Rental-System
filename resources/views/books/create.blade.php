@@ -61,7 +61,7 @@
                                     <select name="genres[]" id="genres" class="form-control" multiple>
                                         @foreach($genres as $genre)
                                             <option value="{{ $genre->id }}"
-                                                {{ in_array($genre->id, old('genres', $book->genres->pluck('id')->toArray()) ? 'selected' : '') }}>
+                                                {{ in_array($genre->id, old('genres', [])) ? 'selected' : '' }}>
                                                 {{ $genre->name }}
                                             </option>
                                         @endforeach
