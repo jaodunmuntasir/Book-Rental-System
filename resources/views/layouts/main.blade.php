@@ -17,7 +17,9 @@
                     <ul class="nav flex-column">
                         <!-- Logo and name at the top of the sidebar -->
                         <div class="sidebar-logo">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
+                        <a href="/">    
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
+                        </a>
                             <h4 class="company-name">Admin</h4>
                         </div>
                         <!-- Books Menu -->
@@ -37,8 +39,8 @@
                                 Genre
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-                                <li><a class="dropdown-item" href="#">Add New Genre</a></li>
-                                <li><a class="dropdown-item" href="#">Genre Lists</a></li>
+                                <li><a class="dropdown-item" href="/genre/create">Add New Genre</a></li>
+                                <li><a class="dropdown-item" href="/genre">Genre Lists</a></li>
                             </ul>
                         </li>
 
