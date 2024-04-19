@@ -26,8 +26,8 @@
                                     <td>{{ $genre->name }}</td>
                                     <td>{{ $genre->style }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary">Edit</a>
-                                        <!-- {{ route('genre.edit', $genre->id) }} -->
+                                        <a href="{{ route('genre.edit', $genre->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        
                                         <form action="{{ route('genre.destroy', $genre->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')

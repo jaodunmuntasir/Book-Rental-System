@@ -51,7 +51,9 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        return view('genres.edit', [
+            "genre" => $genre,
+        ]);
     }
 
     /**
@@ -59,7 +61,9 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        $genre->update($request->validated());
+
+        return redirect()->route('genre.index');
     }
 
     /**

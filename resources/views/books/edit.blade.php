@@ -9,7 +9,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Edit {{ $book -> title }}</h4>
+                    <h4 class="mb-0">Edit Book - {{ $book -> title }}</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('books.update', $book->id) }}" method="POST">
