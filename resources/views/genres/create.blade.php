@@ -12,7 +12,7 @@
                     <h5>Create New Genre</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('genre.store') }}" method="POST">
+                    <form action="{{ route('genres.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Genre Name</label>
@@ -32,7 +32,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success">Create Genre</button>
-                        <a href="{{ route('genre.create') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('genres.create') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

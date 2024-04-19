@@ -36,7 +36,7 @@ class GenreController extends Controller
     {
         Genre::create($request->validated());
 
-        return redirect()->route('genre.index');
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -68,7 +68,7 @@ class GenreController extends Controller
     {
         $genre->update($request->validated());
 
-        return redirect()->route('genre.index');
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -78,7 +78,7 @@ class GenreController extends Controller
     {
         $genre->delete();
 
-        return redirect()->route('genre.index');
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -89,6 +89,6 @@ class GenreController extends Controller
         $books = $genre->books;
         $genre->books()->detach($book->id);
 
-        return redirect()->route('genre.show', $genre->id);
+        return redirect()->route('genres.show', $genre->id);
     }
 }

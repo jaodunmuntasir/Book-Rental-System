@@ -26,10 +26,10 @@
                                     <td>{{ $genre->name }}</td>
                                     <td>{{ $genre->style }}</td>
                                     <td>
-                                        <a href="{{ route('genre.show', $genre->id) }}" class="btn btn-custom-size btn-primary">View Books</a>
-                                        <a href="{{ route('genre.edit', $genre->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="{{ route('genres.show', $genre->id) }}" class="btn btn-custom-size btn-primary">View Books</a>
+                                        <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                         
-                                        <form action="{{ route('genre.destroy', $genre->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('genres.destroy', $genre->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" >Delete</button>

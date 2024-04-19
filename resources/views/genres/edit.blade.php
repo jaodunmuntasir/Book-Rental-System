@@ -12,7 +12,7 @@
                     <h5>Edit Genre - {{ $genre->name }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('genre.update', $genre->id) }}" method="POST">
+                    <form action="{{ route('genres.update', $genre->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
@@ -33,7 +33,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success">Update Genre</button>
-                        <a href="{{ route('genre.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('genres.index') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>
