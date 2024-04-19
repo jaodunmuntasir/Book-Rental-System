@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
+use App\Models\Books;
 
 class GenreController extends Controller
 {
@@ -43,7 +44,11 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        //
+        $books = $genre->books;
+
+        return view('genres.show', [
+            "genre" => $genre,
+        ]);
     }
 
     /**
@@ -74,5 +79,16 @@ class GenreController extends Controller
         $genre->delete();
 
         return redirect()->route('genre.index');
+    }
+
+    /**
+     * Detach a book to a genre.
+     */
+    public function detachBook(Genre $genre, Books $book)
+    {
+        $books = $genre->books;
+        $genre->books()->detach($book->id);
+
+        return redirect()->route('genre.show', $genre->id);
     }
 }

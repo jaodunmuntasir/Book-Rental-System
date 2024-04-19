@@ -32,6 +32,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success">Create Genre</button>
+                        <a href="{{ route('genre.create') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

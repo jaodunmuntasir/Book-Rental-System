@@ -33,6 +33,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success">Update Genre</button>
+                        <a href="{{ route('genre.index') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>
