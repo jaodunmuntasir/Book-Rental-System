@@ -39,8 +39,8 @@
                                 Genre
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-                                <li><a class="dropdown-item" href="/genre/create">Add New Genre</a></li>
-                                <li><a class="dropdown-item" href="/genre">Genre Lists</a></li>
+                                <li><a class="dropdown-item" href="/genres/create">Add New Genre</a></li>
+                                <li><a class="dropdown-item" href="/genres">Genre Lists</a></li>
                             </ul>
                         </li>
 
