@@ -2,6 +2,13 @@
 
 @section('content')
 
+@php
+    $user = auth()->user();
+    $isAdmin = $user && ($user->role === 'admin');
+    $isLibrarian = $user && ($user->role === 'librarian');
+    $isReader = $user && ($user->role === 'reader');
+@endphp
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -27,6 +34,8 @@
                                     <td>{{ $genre->style }}</td>
                                     <td>
                                         <a href="{{ route('genres.show', $genre->id) }}" class="btn btn-custom-size btn-primary">View Books</a>
+                                        @auth
+                                        @if($isAdmin || $isLibrarian)
                                         <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                         
                                         <form action="{{ route('genres.destroy', $genre->id) }}" method="POST" class="d-inline">
@@ -35,6 +44,8 @@
                                             <button type="submit" class="btn btn-sm btn-danger" >Delete</button>
                                             <!-- onclick="return confirm('Are you sure?')" -->
                                         </form>
+                                        @endif
+                                        @endauth
                                     </td>
                                 </tr>
                             @endforeach

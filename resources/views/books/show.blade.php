@@ -4,6 +4,13 @@
 
 <link rel="stylesheet" href="/css/books/show.css">
 
+@php
+    $user = auth()->user();
+    $isAdmin = $user && ($user->role === 'admin');
+    $isLibrarian = $user && ($user->role === 'librarian');
+    $isReader = $user && ($user->role === 'reader');
+@endphp
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -24,7 +31,11 @@
                     <p class="card-text"><span class="detail-label">Total Copies:</span> {{$book->in_stock }}</p>
                     <p class="card-text"><span class="detail-label">Available Copies:</span> 0 </p>
                     <p class="card-text"><span class="detail-label">Description:</span> {{ $book->description }}</p>
+                    @auth
+                    @if($isAdmin || $isLibrarian)
                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
+                    @endif
+                    @endauth
                 </div>
             </div>
         </div>

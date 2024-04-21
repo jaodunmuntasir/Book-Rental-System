@@ -6,6 +6,8 @@ use App\Models\Books;
 use App\Http\Requests\StoreBooksRequest;
 use App\Http\Requests\UpdateBooksRequest;
 use App\Models\Genre;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BooksController extends Controller
 {
@@ -27,6 +29,7 @@ class BooksController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Books::class);
         $genres = Genre::all();
         return view('books.create', compact('genres'));
     }
@@ -58,6 +61,7 @@ class BooksController extends Controller
      */
     public function edit(Books $book)
     {
+        $this->authorize('update', $book);
         $book = Books::findOrFail($book->id);
         $genres = Genre::all();
         
@@ -70,6 +74,7 @@ class BooksController extends Controller
     public function update(UpdateBooksRequest $request, Books $book)
     {
         // $book->update($request->validated());
+        $this->authorize('update', $book);
 
         $validatedData = $request->validated();
     
@@ -91,6 +96,8 @@ class BooksController extends Controller
      */
     public function destroy(Books $book)
     {
+        $this->authorize('delete', $book);
+
         $book = Books::find($book->id);
         $book->delete();
 

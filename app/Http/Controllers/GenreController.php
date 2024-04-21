@@ -26,6 +26,8 @@ class GenreController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Genre::class);
+
         return view('genres.create');
     }
 
@@ -34,6 +36,8 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request)
     {
+        $this->authorize('create', Genre::class);
+        
         Genre::create($request->validated());
 
         return redirect()->route('genres.index');
@@ -56,6 +60,8 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
+        $this->authorize('update', $genre);
+        
         return view('genres.edit', [
             "genre" => $genre,
         ]);
@@ -66,6 +72,8 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
+        $this->authorize('update', $genre);
+        
         $genre->update($request->validated());
 
         return redirect()->route('genres.index');
@@ -76,6 +84,8 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
+        $this->authorize('delete', $genre);
+        
         $genre->delete();
 
         return redirect()->route('genres.index');
@@ -86,6 +96,8 @@ class GenreController extends Controller
      */
     public function detachBook(Genre $genre, Books $book)
     {
+        $this->authorize('delete', $genre);
+        
         $books = $genre->books;
         $genre->books()->detach($book->id);
 

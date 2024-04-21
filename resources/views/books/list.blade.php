@@ -7,6 +7,13 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
 <link rel="stylesheet" href="/css/books/list.css">
 
+@php
+    $user = auth()->user();
+    $isAdmin = $user && ($user->role === 'admin');
+    $isLibrarian = $user && ($user->role === 'librarian');
+    $isReader = $user && ($user->role === 'reader');
+@endphp
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
@@ -50,6 +57,8 @@
                                 <td>{{ $book->in_stock }}</td>
                                 <td>
                                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-custom-size btn-primary">View</a>
+                                    @auth
+                                    @if($isAdmin || $isLibrarian)
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
                                     <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
                                     <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
@@ -58,6 +67,8 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-custom-size btn-danger delete-btn">Delete</button>
                                     </form>
+                                    @endif
+                                    @endauth
 
                                 </td>
                             </tr>

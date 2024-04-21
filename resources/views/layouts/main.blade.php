@@ -30,7 +30,7 @@
                         </a>
                         @auth
                             <h4 class="company-name">{{ Auth::user()->name }}</h4>
-                            <h6 class="company-name">{{ Auth::user()->role }}</h4>
+                            <h6 class="company-name" style="text-transform:uppercase;">{{ Auth::user()->role }}</h4>
                         </div>
                         @endauth
                         <!-- Books Menu -->

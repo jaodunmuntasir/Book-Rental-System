@@ -14,18 +14,11 @@ Route::get('/', function () {
 
 Route::get('/test', function () {
     return view('test');
+})->middleware(['auth','verified', 'role:admin,librarian']);
+
+Route::get('/forbidden', function () {
+    return view('forbidden');
 });
-
-// ->middleware(['auth','verified', 'role:admin,librarian,reader']);
-// ->middleware('auth')
-// ->middleware('verified')
-// ->middleware(EnsureUserHasRole::class)
-// ->attribute('role', 'admin,librarian,reader')
-// ->name('home');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

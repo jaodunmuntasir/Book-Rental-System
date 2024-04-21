@@ -5,15 +5,25 @@ namespace App\Policies;
 use App\Models\Books;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BooksPolicy
 {
+    use HandlesAuthorization;
+
+    public function before(User $user, $ability)
+    {
+        if ($user->role === 'admin') {
+            return true;  // Grant all permissions to admin
+        }
+    }
+    
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +31,7 @@ class BooksPolicy
      */
     public function view(User $user, Books $books): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +39,7 @@ class BooksPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -37,7 +47,7 @@ class BooksPolicy
      */
     public function update(User $user, Books $books): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -45,7 +55,7 @@ class BooksPolicy
      */
     public function delete(User $user, Books $books): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -53,7 +63,7 @@ class BooksPolicy
      */
     public function restore(User $user, Books $books): bool
     {
-        //
+        return $user->role === 'admin';
     }
 
     /**
@@ -61,6 +71,6 @@ class BooksPolicy
      */
     public function forceDelete(User $user, Books $books): bool
     {
-        //
+        return $user->role === 'admin';
     }
 }

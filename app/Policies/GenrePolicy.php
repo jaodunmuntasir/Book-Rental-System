@@ -5,15 +5,25 @@ namespace App\Policies;
 use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GenrePolicy
 {
+    use HandlesAuthorization;
+
+    public function before(User $user, $ability)
+    {
+        if ($user->role === 'admin') {
+            return true;  // Grant all permissions to admin
+        }
+    }
+    
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +31,7 @@ class GenrePolicy
      */
     public function view(User $user, Genre $genre): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +39,7 @@ class GenrePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -37,7 +47,7 @@ class GenrePolicy
      */
     public function update(User $user, Genre $genre): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -45,7 +55,7 @@ class GenrePolicy
      */
     public function delete(User $user, Genre $genre): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -53,7 +63,7 @@ class GenrePolicy
      */
     public function restore(User $user, Genre $genre): bool
     {
-        //
+        return $user->role === 'admin';
     }
 
     /**
@@ -61,6 +71,6 @@ class GenrePolicy
      */
     public function forceDelete(User $user, Genre $genre): bool
     {
-        //
+        return $user->role === 'admin';
     }
 }
