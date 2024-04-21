@@ -23,7 +23,8 @@ class BooksFactory extends Factory
             'pages' => $this->faker->numberBetween(100, 1000),
             'isbn' => $this->faker->isbn13(),
             'description' => $this->faker->paragraph(),
-            'genre' => $this->faker->randomElement(['Fiction', 'Mystery', 'Fantasy', 'Romance', 'Thriller', 'Horror']),
+            // 'genre' => $this->faker->randomElement(['Fiction', 'Mystery', 'Fantasy', 'Romance', 'Thriller', 'Horror']),
+            
             'in_stock' => $this->faker->numberBetween(0, 50),
             'cover' => $this->faker->imageUrl(),
             'language' => $this->faker->languageCode(),

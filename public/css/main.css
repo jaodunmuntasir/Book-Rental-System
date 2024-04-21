@@ -39,6 +39,7 @@ body {
 .sidebar-logo img {
     width: 50%; /* Adjust size as needed */
     height: auto;
+    border-radius: 50%;
 }
 .company-name {
     margin-top: 7px;

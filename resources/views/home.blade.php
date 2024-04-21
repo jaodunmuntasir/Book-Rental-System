@@ -1,37 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
-<!-- Cards for information -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card bg-blue text-white mb-4">
-                            <div class="card-header">
-                                Card Title
-                            </div>
-                            <div class="card-body">
-                                This is some text within a card body.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-blue text-white mb-4">
-                            <div class="card-header">
-                                Card Title
-                            </div>
-                            <div class="card-body">
-                                This is some text within a card body.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-blue text-white mb-4">
-                            <div class="card-header">
-                                Card Title
-                            </div>
-       <div the="card-body">
-          This is some text within a card body.
-      </div>
+
+<div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900">
+                {{ __("You're logged in!") }}
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
 @endsection

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Book;
+use App\Models\Genre;
 
 class BooksSeeder extends Seeder
 {
@@ -15,6 +17,17 @@ class BooksSeeder extends Seeder
     {
        DB::table('books')->truncate();
 
-       \App\Models\Books::factory(10)->create();
+    //    \App\Models\Books::factory(10)->create();
+
+
+        // Assume you have a few genres already seeded in your database
+        $genres = Genre::all();
+
+        \App\Models\Books::factory(10)->create()->each(function ($book) use ($genres) {
+                    // Attach random genres to each book
+                    $book->genres()->attach(
+                        $genres->random(rand(1, 3))->pluck('id')->toArray()
+                    );
+                });
     }
 }

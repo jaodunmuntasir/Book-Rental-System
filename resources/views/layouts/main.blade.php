@@ -7,6 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
+    @php
+        $user = auth()->user();
+        $isAdmin = $user && ($user->role === 'admin');
+        $isLibrarian = $user && ($user->role === 'librarian');
+        $isReader = $user && ($user->role === 'reader');
+    @endphp
+
 </head>
 <body>
     <div class="container-fluid">
@@ -16,17 +23,27 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <!-- Logo and name at the top of the sidebar -->
+                        
                         <div class="sidebar-logo">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
-                            <h4 class="company-name">Admin</h4>
+                        <a href="/">    
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
+                        </a>
+                        @auth
+                            <h4 class="company-name">{{ Auth::user()->name }}</h4>
+                            <h6 class="company-name" style="text-transform:uppercase;">{{ Auth::user()->role }}</h4>
                         </div>
+                        @endauth
                         <!-- Books Menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBooks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Books
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownBooks">
+                                @auth
+                                @if($isAdmin || $isLibrarian)
                                 <li><a class="dropdown-item" href="/books/create">Add New Book</a></li>
+                                @endif
+                                @endauth
                                 <li><a class="dropdown-item" href="/books">Book Lists</a></li>
                             </ul>
                         </li>
@@ -37,12 +54,18 @@
                                 Genre
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
-                                <li><a class="dropdown-item" href="#">Add New Genre</a></li>
-                                <li><a class="dropdown-item" href="#">Genre Lists</a></li>
+                                @auth
+                                @if($isAdmin || $isLibrarian)
+                                <li><a class="dropdown-item" href="/genres/create">Add New Genre</a></li>
+                                @endif
+                                @endauth
+                                <li><a class="dropdown-item" href="/genres">Genre Lists</a></li>
                             </ul>
                         </li>
 
                         <!-- Rental Requests Menu -->
+                        @auth
+                        @if($isAdmin || $isLibrarian)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentalRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Rental Requests
@@ -67,32 +90,36 @@
                             </ul>
                         </li>
 
-                        <!-- Renters Requests Menu -->
+                        <!-- Reader Requests Menu -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentersRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Renters Requests
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReaderRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reader Requests
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentersRequests">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownReaderRequests">
                                 <li><a class="dropdown-item" href="#">Pending</a></li>
                                 <li><a class="dropdown-item" href="#">Approved</a></li>
                                 <li><a class="dropdown-item" href="#">Rejected</a></li>
                             </ul>
                         </li>
 
-                        <!-- Renters List Menu -->
+                        <!-- Readers List Menu -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Renters List
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReadersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Readers List
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentersList">
+                            <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownReadersList">
                                 <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">Due Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">View All Renters</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
+                        @endif
+                        @endauth
 
                         <!-- Librarian Menu -->
+                        @auth
+                        @if($isAdmin)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLibrarian" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Librarian
@@ -102,6 +129,8 @@
                                 <li><a class="dropdown-item" href="#">View All Librarian</a></li>
                             </ul>
                         </li>
+                        @endif
+                        @endauth
                     </ul>
                 </div>
             </nav>
@@ -112,6 +141,8 @@
                     <h1 class="h2"></h1>
                     <!-- Right-aligned items (Notifications and User Profile) -->
                     <div class="btn-toolbar mb-2 mb-md-0">
+                        
+                        @auth
                         <!-- Notifications Button -->
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,11 +162,44 @@
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="User" class="rounded-circle" style="width: 30px; height: 30px;"> <!-- User Thumbnail -->
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item">{{ Auth::user()->name }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
                                 <li><a class="dropdown-item" href="#">My Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Log Out') }}
+                                        </a>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
+                        @endauth
+
+                        @if (Route::has('login'))
+                            <nav class="-mx-3 flex flex-1 justify-end">
+                                @auth
+                                @else
+                                    <a
+                                        href="{{ route('login') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                    >
+                                        Log in
+                                    </a>
+
+                                    @if (Route::has('register'))
+                                        <a
+                                            href="{{ route('register') }}"
+                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Register
+                                        </a>
+                                    @endif
+                                @endauth
+                            </nav>
+                        @endif
+
                     </div>
                 </div>                
 

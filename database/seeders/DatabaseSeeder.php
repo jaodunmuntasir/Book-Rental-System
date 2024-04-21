@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\Book;
+use App\Models\Genre;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +23,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        \App\Models\User::factory(10)->create();
+
+        $this->call([
+            GenreSeeder::class,
+        ]);
+        
         $this->call([
             BooksSeeder::class,
         ]);
