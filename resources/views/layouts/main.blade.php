@@ -69,29 +69,29 @@
                             </ul>
                         </li>
 
-                        <!-- Renters Requests Menu -->
+                        <!-- Reader Requests Menu -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentersRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Renters Requests
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReaderRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reader Requests
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentersRequests">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownReaderRequests">
                                 <li><a class="dropdown-item" href="#">Pending</a></li>
                                 <li><a class="dropdown-item" href="#">Approved</a></li>
                                 <li><a class="dropdown-item" href="#">Rejected</a></li>
                             </ul>
                         </li>
 
-                        <!-- Renters List Menu -->
+                        <!-- Readers List Menu -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Renters List
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReadersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Readers List
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentersList">
+                            <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownReadersList">
                                 <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">Due Rentals</a></li>
                                 <li><a class="dropdown-item" href="#">View All Renters</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
 
                         <!-- Librarian Menu -->

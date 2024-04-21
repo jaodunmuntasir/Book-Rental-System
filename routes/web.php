@@ -16,3 +16,7 @@ Route::resource("genres", GenreController::class);
 Route::delete('/genres/{genre}/books/{book}', [GenreController::class, 'detachBook'])->name('genres.detachBook');
 
 Route::resource("books.rentals", RentalController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
