@@ -7,6 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
+    @php
+        $user = auth()->user();
+        $isAdmin = $user && ($user->role === 'admin');
+        $isLibrarian = $user && ($user->role === 'librarian');
+        $isReader = $user && ($user->role === 'reader');
+    @endphp
+
 </head>
 <body>
     <div class="container-fluid">
@@ -16,19 +23,27 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <!-- Logo and name at the top of the sidebar -->
+                        
                         <div class="sidebar-logo">
                         <a href="/">    
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="Dashboard Logo">
                         </a>
-                            <h4 class="company-name">Admin</h4>
+                        @auth
+                            <h4 class="company-name">{{ Auth::user()->name }}</h4>
+                            <h6 class="company-name">{{ Auth::user()->role }}</h4>
                         </div>
+                        @endauth
                         <!-- Books Menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBooks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Books
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownBooks">
+                                @auth
+                                @if($isAdmin || $isLibrarian)
                                 <li><a class="dropdown-item" href="/books/create">Add New Book</a></li>
+                                @endif
+                                @endauth
                                 <li><a class="dropdown-item" href="/books">Book Lists</a></li>
                             </ul>
                         </li>
@@ -39,12 +54,18 @@
                                 Genre
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+                                @auth
+                                @if($isAdmin || $isLibrarian)
                                 <li><a class="dropdown-item" href="/genres/create">Add New Genre</a></li>
+                                @endif
+                                @endauth
                                 <li><a class="dropdown-item" href="/genres">Genre Lists</a></li>
                             </ul>
                         </li>
 
                         <!-- Rental Requests Menu -->
+                        @auth
+                        @if($isAdmin || $isLibrarian)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRentalRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Rental Requests
@@ -93,8 +114,12 @@
                                 <li><a class="dropdown-item" href="#">View All Renters</a></li>
                             </ul> -->
                         </li>
+                        @endif
+                        @endauth
 
                         <!-- Librarian Menu -->
+                        @auth
+                        @if($isAdmin)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLibrarian" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Librarian
@@ -104,6 +129,8 @@
                                 <li><a class="dropdown-item" href="#">View All Librarian</a></li>
                             </ul>
                         </li>
+                        @endif
+                        @endauth
                     </ul>
                 </div>
             </nav>
