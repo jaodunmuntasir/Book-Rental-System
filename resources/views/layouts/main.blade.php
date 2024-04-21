@@ -114,6 +114,8 @@
                     <h1 class="h2"></h1>
                     <!-- Right-aligned items (Notifications and User Profile) -->
                     <div class="btn-toolbar mb-2 mb-md-0">
+                        
+                        @auth
                         <!-- Notifications Button -->
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -133,11 +135,44 @@
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6TYJIJDHxuJMM0m2-DYwD_0LKUT6gdWb_A&usqp=CAU" alt="User" class="rounded-circle" style="width: 30px; height: 30px;"> <!-- User Thumbnail -->
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item">{{ Auth::user()->name }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
                                 <li><a class="dropdown-item" href="#">My Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Log Out') }}
+                                        </a>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
+                        @endauth
+
+                        @if (Route::has('login'))
+                            <nav class="-mx-3 flex flex-1 justify-end">
+                                @auth
+                                @else
+                                    <a
+                                        href="{{ route('login') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                    >
+                                        Log in
+                                    </a>
+
+                                    @if (Route::has('register'))
+                                        <a
+                                            href="{{ route('register') }}"
+                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Register
+                                        </a>
+                                    @endif
+                                @endauth
+                            </nav>
+                        @endif
+
                     </div>
                 </div>                
 

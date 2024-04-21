@@ -1,12 +1,36 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\RentalController;
+use App\Http\Middleware\EnsureUserHasRole;
+
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::get('/test', function () {
+    return view('test');
+});
+
+// ->middleware(['auth','verified', 'role:admin,librarian,reader']);
+// ->middleware('auth')
+// ->middleware('verified')
+// ->middleware(EnsureUserHasRole::class)
+// ->attribute('role', 'admin,librarian,reader')
+// ->name('home');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::resource("books", BooksController::class);
@@ -17,6 +41,4 @@ Route::delete('/genres/{genre}/books/{book}', [GenreController::class, 'detachBo
 
 Route::resource("books.rentals", RentalController::class);
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__.'/auth.php';
