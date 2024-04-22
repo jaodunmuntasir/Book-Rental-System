@@ -15,19 +15,15 @@ class BooksSeeder extends Seeder
      */
     public function run(): void
     {
-       DB::table('books')->truncate();
-
-    //    \App\Models\Books::factory(10)->create();
-
-
         // Assume you have a few genres already seeded in your database
         $genres = Genre::all();
 
-        \App\Models\Books::factory(10)->create()->each(function ($book) use ($genres) {
-                    // Attach random genres to each book
-                    $book->genres()->attach(
-                        $genres->random(rand(1, 3))->pluck('id')->toArray()
-                    );
-                });
+        \App\Models\Books::factory(20)->create()->each(function ($book) use ($genres) 
+        {
+            // Attach random genres to each book
+            $book->genres()->attach(
+                $genres->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
     }
 }

@@ -11,7 +11,7 @@ class StoreRentalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreRentalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'book_id' => ['required', 'exists:books,id'],
+            'rental_requested_at' => ['required', 'date'],
+            'rental_start_at' => ['nullable', 'date'],
+            'rental_due_at' => ['nullable', 'date'],
+            'returned_at' => ['nullable', 'date'],
+            'status' => ['required', 'string', 'in:Pending Review,Approved,Returned,Overdue,Cancelled'],
+            'user_id' => ['required', 'exists:users,id'],
         ];
     }
 }

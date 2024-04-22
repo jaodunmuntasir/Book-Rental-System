@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rental;
 use App\Http\Requests\StoreRentalRequest;
 use App\Http\Requests\UpdateRentalRequest;
+use App\Models\Books;
 
 class RentalController extends Controller
 {
@@ -27,9 +28,20 @@ class RentalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRentalRequest $request)
+    public function store(StoreRentalRequest $request, Books $book)
     {
-        //
+        $book = Books::findOrFail($book->id);
+        if ($book->rentals()->where('user_id', Auth::id())->whereNull('returned_at')->exists()) {
+            return back()->with('error', 'You have already rented this book.');
+        }
+
+        Rental::create([
+            'user_id' => Auth::id(),
+            'book_id' => $book->id,
+            'rental_requested_at' => now(),
+        ]);
+
+        return redirect()->route('books.index')->with('success', 'Rental requested successfully. Waiting for approval.');
     }
 
     /**

@@ -58,6 +58,13 @@
                                 <td>
                                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-custom-size btn-primary">View</a>
                                     @auth
+                                    @if($isReader)
+                                    <form action="{{ route('books.rentals.store', $book->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-custom-size btn-primary">Rent Book</button>
+                                    </form>
+                                    @endif
+
                                     @if($isAdmin || $isLibrarian)
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
                                     <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
