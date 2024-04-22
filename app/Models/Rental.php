@@ -22,7 +22,7 @@ class Rental extends Model
 
     public function book(): BelongsTo
     {
-        return $this->belongsTo(Books::class);
+        return $this->belongsTo(Books::class, 'books_id');
     }
 
     public function user(): BelongsTo

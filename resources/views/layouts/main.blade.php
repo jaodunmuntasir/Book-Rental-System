@@ -71,9 +71,9 @@
                                 Rental Requests
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentalRequests">
-                                <li><a class="dropdown-item" href="#">Pending</a></li>
-                                <li><a class="dropdown-item" href="#">Approved</a></li>
-                                <li><a class="dropdown-item" href="#">Rejected</a></li>
+                                <li><a class="dropdown-item" href="/rentals/pendinglist">Pending</a></li>
+                                <li><a class="dropdown-item" href="/rentals/approvedlist">Approved</a></li>
+                                <li><a class="dropdown-item" href="/rentals/rejectedlist">Rejected</a></li>
                             </ul>
                         </li>
 

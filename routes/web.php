@@ -35,3 +35,9 @@ Route::delete('/genres/{genre}/books/{book}', [GenreController::class, 'detachBo
 Route::resource("books.rentals", RentalController::class);
 
 require __DIR__.'/auth.php';
+
+Route::get('/rentals/rejectedlist', [RentalController::class, 'showRejected'])->name('rentals.rejectedlist');
+Route::get('/rentals/approvedlist', [RentalController::class, 'showApproved'])->name('rentals.approvedlist');
+Route::get('/rentals/pendinglist', [RentalController::class, 'showPending'])->name('rentals.pendinglist');
+Route::post('/rentals/{rental}/approve', [RentalController::class, 'approve'])->name('rentals.approve');
+Route::post('/rentals/{rental}/reject', [RentalController::class, 'reject'])->name('rentals.reject');
