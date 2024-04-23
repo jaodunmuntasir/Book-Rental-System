@@ -6,32 +6,38 @@
 <link rel="stylesheet" href="/css/rentals/custom.css">
 
 <div class="container">
-    <h2 class="mb-4">Approved Rental Requests</h2>
-    <table class="table table-hover">
+    <h2>Overdue Rentals</h2>
+    <form action="{{ route('rentals.markoverdue') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-warning">Mark Overdue Rentals</button>
+    </form>
+
+    <table class="table">
         <thead>
             <tr>
-                <th scope="col">Rental ID</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">User</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">Due Date</th>
+                <th>Rental ID</th>
+                <th>Book Title</th>
+                <th>User</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                
             </tr>
         </thead>
         <tbody>
-
-            @if ($rentals->isEmpty())
+            @if($rentals->isEmpty())
             <tr>
-                <td colspan="5">No approved rental requests found.</td>
+                <td colspan="5">No overdue rentals found.</td>
             </tr>
             @endif
 
-            @foreach ($rentals as $rental)
+            @foreach($rentals as $rental)
             <tr>
-                <th scope="row">{{ $rental->id }}</th>
+                <td>{{ $rental->id }}</td>
                 <td>{{ $rental->book->title }}</td>
                 <td>{{ $rental->user->name }}</td>
                 <td>{{ $rental->rental_start_at }}</td>
                 <td>{{ $rental->rental_due_at }}</td>
+                
             </tr>
             @endforeach
         </tbody>

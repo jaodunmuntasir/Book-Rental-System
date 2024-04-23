@@ -6,21 +6,22 @@
 <link rel="stylesheet" href="/css/rentals/custom.css">
 
 <div class="container">
-    <h2 class="mb-4">Rejected Rental Requests</h2>
+    <h2 class="mb-4">Completed Rentals</h2>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Rental ID</th>
                 <th scope="col">Book Title</th>
                 <th scope="col">User</th>
-                <th scope="col">Requested At</th>
-                <th scope="col">Rejected At</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Return Date</th>
             </tr>
         </thead>
         <tbody>
             @if ($rentals->isEmpty())
                 <tr>
-                    <td colspan="5">No rejected rental requests found.</td>
+                    <td colspan="5">No completed rental found.</td>
                 </tr>
             @endif
 
@@ -29,8 +30,9 @@
                     <th scope="row">{{ $rental->id }}</th>
                     <td>{{ optional($rental->book)->title ?? 'Book not available' }}</td>
                     <td>{{ $rental->user->name }}</td>
-                    <td>{{ $rental->rental_requested_at}}</td>
-                    <td>{{ $rental->updated_at}}</td>
+                    <td>{{ $rental->rental_start_at}}</td>
+                    <td>{{ $rental->rental_due_at}}</td>
+                    <td>{{ $rental->returned_at}}</td>
                 </tr>
             @endforeach
 

@@ -83,10 +83,10 @@
                                 Rentals List
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentalsList">
-                                <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Due Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">View All Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/ongoinglist">Ongoing Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/returnedlist">Completed Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/overduelist">Overdue Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/all">View All Rentals</a></li>
                             </ul>
                         </li>
 
@@ -164,7 +164,11 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item">{{ Auth::user()->name }}</a></li>
                                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
-                                <li><a class="dropdown-item" href="#">My Rentals</a></li>
+                                @auth
+                                @if($isReader)
+                                <li><a class="dropdown-item" href="/myrentals">My Rentals</a></li>
+                                @endif
+                                @endauth
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf

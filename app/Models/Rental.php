@@ -13,7 +13,7 @@ class Rental extends Model
     protected $fillable = [
         'user_id',
         'books_id',
-        'status', // 'status' can be 'Pending Review', 'Approved', 'Returned', 'Overdue', 'Cancelled
+        'status', // 'status' can be 'Pending Review', 'Approved', 'Returned', 'Overdue', 'Cancelled'
         'rental_requested_at',
         'rental_start_at', // 'rental_start_at' is the timestamp when the book rental is approved by a librarian or admin
         'rental_due_at',

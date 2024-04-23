@@ -9,6 +9,9 @@ use App\Models\Books;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Carbon;
 
 class RentalController extends Controller
 {
@@ -33,6 +36,8 @@ class RentalController extends Controller
      */
     public function store(StoreRentalRequest $request, Books $book)
     {
+        $this->authorize('create', Rental::class);
+
         $book = Books::findOrFail($book->id);
         if ($book->rentals()->where('user_id', Auth::id())->whereNull('returned_at')->exists()) {
             return back()->with('error', 'You have already rented this book.');
@@ -81,19 +86,19 @@ class RentalController extends Controller
 
     public function approve($id)
     {
-        // $this->authorize('manage-rentals');
+        // $this->authorize('manage');
         $rental = Rental::findOrFail($id);
         $rental->update([
             'rental_start_at' => now(),
             'rental_due_at' => now()->addDays(7),
             'status' => 'Approved',
         ]);
-        return redirect()->route('rentals.pending')->with('success', 'Rental approved successfully.');
+        return redirect()->route('rentals.pendinglist')->with('success', 'Rental approved successfully.');
     }
 
     public function reject($id)
     {
-        // $this->authorize('manage-rentals');
+        // $this->authorize('manage');
         $rental = Rental::findOrFail($id);
         $rental->update([
             'status' => 'Cancelled',
@@ -103,32 +108,105 @@ class RentalController extends Controller
 
     public function returnBook(Request $request, $id)
     {
+        $this->authorize('create', Rental::class);
+        
         $rental = Rental::findOrFail($id);
         $rental->update([
             'returned_at' => now(),
-            'status' => 'Completed',
+            'status' => 'Returned',
         ]);
         return back()->with('success', 'Book returned successfully.');
     }
 
+    public function cancelRentalRequest(Request $request, $id)
+    {
+        $this->authorize('create', Rental::class);
+        
+        $rental = Rental::findOrFail($id);
+        $rental->update([
+            'status' => 'Cancelled',
+        ]);
+        return back()->with('success', 'Rental request cancelled.');
+    }
+
+    public function markOverdue(Request $request)
+    {
+        // $this->authorize('manage');
+        
+        $rentals = Rental::where('status', 'Approved')->where('rental_due_at', '<', now())->whereNull('returned_at')->get();
+
+        foreach ($rentals as $rental) {
+            $rental->update([
+                'status' => 'Overdue'
+            ]);
+        }
+
+        return back()->with('success', 'Overdue rentals have been updated.');
+    }
+
     public function showRejected ()
     {
-        // $this->authorize('manage-rentals');
+        // $this->authorize('manage');
         $rentals = Rental::with('book', 'user')->where('status', 'Cancelled')->get();
         return view('rentals.rejected', compact('rentals'));
     }
 
     public function showPending ()
     {
-        // $this->authorize('manage-rentals');
+        // $this->authorize('manage');
         $rentals = Rental::with('book', 'user')->where('status', 'Pending Review')->get();
         return view('rentals.pending', compact('rentals'));
     }
 
     public function showApproved ()
     {
-        // $this->authorize('manage-rentals');
+        // $this->authorize('manage');
         $rentals = Rental::with('book', 'user')->where('status', 'Approved')->get();
         return view('rentals.approved', compact('rentals'));
     }
+
+    public function showReturned ()
+    {
+        // $this->authorize('manage');
+        $rentals = Rental::with('book', 'user')->where('status', 'Returned')->get();
+        return view('rentals.returned', compact('rentals'));
+    }
+
+    public function showOverdue ()
+    {
+        // $this->authorize('manage');
+        $rentals = Rental::with('book', 'user')->where('status', 'Overdue')->get();
+        return view('rentals.overdue', compact('rentals'));
+    }
+
+    public function showOngoing ()
+    {
+        // $this->authorize('manage');
+        $rentals = Rental::with('book', 'user')
+            ->where('status', 'Approved')
+            ->whereNull('returned_at')
+            ->where('rental_due_at', '>', now())
+            ->get();
+
+        return view('rentals.ongoing', compact('rentals'));
+    }
+
+    public function showAll ()
+    {
+        // $this->authorize('manage');
+        $rentals = Rental::with('book', 'user')
+            ->whereNotNull('rental_start_at')
+            ->get();
+
+        return view('rentals.all', compact('rentals'));
+    }
+
+    public function myRentals()
+    {
+        $user = Auth::user();
+        $rentals = $user->rentals()->with('book')->get();
+
+        return view('rentals.myrentals', compact('rentals'));
+    }
+
 }
