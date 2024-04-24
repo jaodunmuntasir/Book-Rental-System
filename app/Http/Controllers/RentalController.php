@@ -63,17 +63,27 @@ class RentalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Rental $rental)
+    public function edit(Books $book, Rental $rental)
     {
-        //
+        $this->authorize('update', $rental);
+
+        $rental = Rental::findOrFail($rental->id);
+        $books = Books::all();
+        $users = User::all();
+
+        return view('rentals.edit', compact('rental', 'books', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRentalRequest $request, Rental $rental)
+    public function update(UpdateRentalRequest $request, Books $book, Rental $rental, User $user)
     {
-        //
+        $this->authorize('update', $rental);
+
+        $rental->update($request->validated());
+
+        return back()->with('success', 'Rental updated successfully.');
     }
 
     /**
@@ -207,6 +217,13 @@ class RentalController extends Controller
         $rentals = $user->rentals()->with('book')->get();
 
         return view('rentals.myrentals', compact('rentals'));
+    }
+
+    public function showReaderRentals(User $user)
+    {
+        $rentals = $user->rentals()->with('book')->get();
+
+        return view('profile.reader', compact('rentals', 'user'));
     }
 
 }

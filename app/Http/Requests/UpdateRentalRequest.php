@@ -11,7 +11,7 @@ class UpdateRentalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateRentalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'returned_at' => ['nullable', 'date'],
+            'status' => ['required', 'string', 'max:255'],
         ];
     }
 }

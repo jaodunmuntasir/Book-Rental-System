@@ -37,7 +37,7 @@ class RentalPolicy
      */
     public function update(User $user, Rental $rental): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**

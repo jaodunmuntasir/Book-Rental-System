@@ -1,4 +1,4 @@
-I'm using Laravel and blade and tailwind CSS. Now I need the code for my sidenav on the left side. It should look like the following.
+
 
 Book
     | -------> Add New Book

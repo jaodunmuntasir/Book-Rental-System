@@ -90,29 +90,11 @@
                             </ul>
                         </li>
 
-                        <!-- Reader Requests Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReaderRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Reader Requests
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownReaderRequests">
-                                <li><a class="dropdown-item" href="#">Pending</a></li>
-                                <li><a class="dropdown-item" href="#">Approved</a></li>
-                                <li><a class="dropdown-item" href="#">Rejected</a></li>
-                            </ul>
-                        </li>
-
                         <!-- Readers List Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReadersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/readers" id="navbarReadersList" role="button" aria-expanded="false">
                                 Readers List
                             </a>
-                            <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownReadersList">
-                                <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Due Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">View All Renters</a></li>
-                            </ul> -->
                         </li>
                         @endif
                         @endauth
@@ -126,7 +108,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownLibrarian">
                                 <li><a class="dropdown-item" href="#">Add New Librarian</a></li>
-                                <li><a class="dropdown-item" href="#">View All Librarian</a></li>
+                                <li><a class="dropdown-item" href="/librarians">View All Librarians</a></li>
                             </ul>
                         </li>
                         @endif

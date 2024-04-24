@@ -55,4 +55,11 @@ Route::middleware(['auth','verified', 'role:admin,librarian'])->group(function (
     Route::post('/rentals/markoverdue', [RentalController::class, 'markOverdue'])->name('rentals.markoverdue');
     Route::get('/rentals/ongoinglist', [RentalController::class, 'showOngoing'])->name('rentals.ongoinglist');
     Route::get('/rentals/all', [RentalController::class, 'showAll'])->name('rentals.all');
+
+    Route::get('/readers', [ProfileController::class, 'showReaders'])->name('readers.showreaders');
+    Route::get('/readers/{user}/rentals', [RentalController::class, 'showReaderRentals'])->name('readers.rentals');
+
+    Route::get('/librarians', [ProfileController::class, 'showLibrarians'])->name('librarians.showlibrarians');
+    Route::patch('/librarians/{user}/delete', [ProfileController::class, 'changeLibrarianToReader'])->name('librarians.deletelibrarian');
+    Route::patch('/readers/{user}/promote', [ProfileController::class, 'changeReaderToLibrarian'])->name('readers.promotelibrarian');
 });

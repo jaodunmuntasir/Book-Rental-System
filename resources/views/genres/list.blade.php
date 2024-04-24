@@ -33,7 +33,7 @@
                                     <td>{{ $genre->name }}</td>
                                     <td>{{ $genre->style }}</td>
                                     <td>
-                                        <a href="{{ route('genres.show', $genre->id) }}" class="btn btn-custom-size btn-primary">View Books</a>
+                                        <a href="{{ route('genres.show', $genre->id) }}" class="btn btn-sm btn-primary">View Books</a>
                                         @auth
                                         @if($isAdmin || $isLibrarian)
                                         <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-primary">Edit</a>
