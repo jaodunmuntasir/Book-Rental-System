@@ -15,7 +15,6 @@ class BooksSeeder extends Seeder
      */
     public function run(): void
     {
-        // Assume you have a few genres already seeded in your database
         $genres = Genre::all();
 
         \App\Models\Books::factory(20)->create()->each(function ($book) use ($genres) 

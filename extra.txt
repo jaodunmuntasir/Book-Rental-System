@@ -113,3 +113,41 @@
 // return view('genres.list');
 
 // return redirect()->route('myrentals');
+
+
+---------------------------------------------------- Rental Seeder --------------------------------------------------------------------------
+
+// // Generate 30 rental records
+// // foreach (range(1, 40) as $index) 
+// // {
+//     // Rental::factory(30)->create([
+        
+//     // ]);
+// // }
+
+// Rental::factory()
+//     ->count(30)
+//     ->for($users->random())
+//     ->for($books->random())
+//     ->create();
+
+// foreach ($books as $book) {
+//     \App\Models\Rental::factory(5)
+//         ->for($user)
+//         ->hasBooks()
+//         ->create() ;
+// }
+
+// foreach ($books as $book) {
+//     \App\Models\Rental::factory(5)->create([
+//         'user_id' => $users->random(),
+//         'book_id' => $book,
+//     ]);
+// }
+
+// foreach (range(1, 40) as $index) {
+//     \App\Models\Rental::factory()->create([
+//         'user_id' => $users->random(),
+//         'books_id' => $books->random(),
+//     ]);
+// }

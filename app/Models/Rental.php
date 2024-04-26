@@ -10,6 +10,13 @@ class Rental extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'rental_requested_at' => 'datetime',
+        'rental_start_at' => 'datetime',
+        'rental_due_at' => 'datetime',
+        'returned_at' => 'datetime',
+    ];    
+
     protected $fillable = [
         'user_id',
         'books_id',

@@ -38,17 +38,17 @@
 
         <div class="mb-3">
             <label for="rental_start_at" class="form-label">Rental Start Date and Time</label>
-            <input type="datetime-local" class="form-control" id="rental_start_at" name="rental_start_at" value="{{ $rental->rental_start_at ? $rental->rental_start_at : '' }}">
+            <input type="datetime-local" class="form-control" id="rental_start_at" name="rental_start_at" value="{{ $rental->rental_start_at ? $rental->rental_start_at->format('Y-m-d\TH:i') : '' }}">
         </div>
 
         <div class="mb-3">
             <label for="rental_due_at" class="form-label">Due Date and Time</label>
-            <input type="datetime-local" class="form-control" id="rental_due_at" name="rental_due_at" value="{{ $rental->rental_due_at ? $rental->rental_due_at : '' }}">
+            <input type="datetime-local" class="form-control" id="rental_due_at" name="rental_due_at" value="{{ $rental->rental_due_at ? $rental->rental_due_at->format('Y-m-d\TH:i') : '' }}">
         </div>
 
         <div class="mb-3">
             <label for="rental_returned_at" class="form-label">Returned Date and Time</label>
-            <input type="datetime-local" class="form-control" id="rental_returned_at" name="rental_returned_at" value="{{ $rental->returned_at ? $rental->returned_at : '' }}">
+            <input type="datetime-local" class="form-control" id="rental_returned_at" name="rental_returned_at" value="{{ $rental->returned_at ? $rental->returned_at->format('Y-m-d\TH:i') : '' }}">
         </div>
 
         <button type="submit" class="btn btn-primary">Update Rental</button>
