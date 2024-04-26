@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('flashmsg')
+
 <link rel="stylesheet" href="/css/genres/show.css">
 
 @php

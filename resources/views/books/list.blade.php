@@ -2,8 +2,10 @@
 
 @section('content')
 
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"> -->
+@include('flashmsg')
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
 <link rel="stylesheet" href="/css/books/list.css">
 
@@ -59,21 +61,25 @@
                                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-custom-size btn-primary">View</a>
                                     @auth
                                     @if($isReader)
-                                    <form action="{{ route('books.rentals.store', $book->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-custom-size btn-primary">Rent Book</button>
-                                    </form>
+                                        <form action="{{ route('books.rentals.store', ['book' => $book->id]) }}" method="POST">
+                                            @csrf
+                                            <!-- <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                            <input type="hidden" name="books_id" value="{{ $book->id }}">
+                                            <input type="hidden" name="status" value="Pending Review">
+                                            <input type="hidden" name="rental_requested_at" value="{{ now() }}"> -->
+                                            <button type="submit" class="btn btn-custom-size btn-primary">Rent Book</button>
+                                        </form>
                                     @endif
 
                                     @if($isAdmin || $isLibrarian)
-                                    <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
-                                    <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
-                                    <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
-                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-custom-size btn-danger delete-btn">Delete</button>
-                                    </form>
+                                        <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
+                                        <!-- <a href="{{ route("books.destroy", ["book" => $book -> id]) }}" class="btn btn-sm btn-danger delete-btn"></a> -->
+                                        <!-- <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $book->id }}">Delete</button> -->
+                                        <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-custom-size btn-danger delete-btn">Delete</button>
+                                        </form>
                                     @endif
                                     @endauth
 
@@ -89,15 +95,16 @@
 </div>
 
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 
-<script>
-$(document).ready(function() {
-    $('.table').DataTable();
-});
-</script>
+<!-- <script>
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+</script> -->
 
 
 @endsection

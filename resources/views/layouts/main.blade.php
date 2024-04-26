@@ -16,6 +16,9 @@
 
 </head>
 <body>
+
+    @include('flashmsg')
+
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->

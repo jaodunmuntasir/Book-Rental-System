@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
+@include('flashmsg')
+
 <div class="container">
     <h2>Rentals of {{ $user->name }} </h2>
     <table class="table">

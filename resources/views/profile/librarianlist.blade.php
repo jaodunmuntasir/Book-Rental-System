@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
+@include('flashmsg')
+
 <div class="container">
     <h2>Librarians List</h2>
     <table class="table">

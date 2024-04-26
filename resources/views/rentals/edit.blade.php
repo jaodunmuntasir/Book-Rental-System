@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
+@include('flashmsg')
+
 <div class="container mt-4">
     <h2>Edit Rental</h2>
     <form action="{{ route('books.rentals.update', ['book' => $rental->book->id, 'rental' => $rental->id]) }}" method="POST">

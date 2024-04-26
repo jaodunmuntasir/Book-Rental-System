@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('flashmsg')
+
 @php
     $user = auth()->user();
     $isAdmin = $user && ($user->role === 'admin');
