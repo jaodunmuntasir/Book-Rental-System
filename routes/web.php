@@ -6,12 +6,15 @@ use App\Http\Controllers\BooksController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\RentalController;
 use App\Http\Middleware\EnsureUserHasRole;
+use App\Http\Controllers\UtilityController;
 
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 // ->middleware(['auth','verified']);
+
+Route::get('/', [UtilityController::class, 'dashboard'])->name('dashboard');
 
 Route::get('/test', function () {
     return view('test');
