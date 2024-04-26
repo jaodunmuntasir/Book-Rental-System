@@ -42,78 +42,21 @@ class RentalController extends Controller
         }
     
         if ($book->rentals()->where('user_id', Auth::id())->whereNull('returned_at')->exists()) {
-            return back()->with('error', 'You have already rented this book.');
+
+            if ($book->rentals()->where('user_id', Auth::id())->where('status', 'Pending Review')->exists()) {
+                return back()->with('error', 'You have already requested this book.');
+            }
+            else if ($book->rentals()->where('user_id', Auth::id())->where('status', 'Approved')->exists()) {
+                return back()->with('error', 'You have already rented this book.');
+            }
+            else if ($book->rentals()->where('user_id', Auth::id())->where('status', 'Overdue')->exists()) {
+                return back()->with('error', 'You have an overdue rental for this book.');
+            }
         }
         
         Rental::create($request->validated());
 
         return back()->with('success', 'Rental requested successfully. Waiting for approval.');
-        
-        // $this->authorize('create', Rental::class);
-
-        // $book = Books::findOrFail($book->id);
-
-        // if ($book->rentals()->where('user_id', Auth::id())->whereNull('returned_at')->exists()) {
-        //     return back()->with('error', 'You have already rented this book.');
-        // }
-
-        // \Log::info('Request Data:', $request->all());
-        // \Log::info('Authenticated User ID:', Auth::id());
-
-        // dd($request->all());
-
-        // $user = Auth::user();
-        
-        // $rental = new Rental();
-        // $rental->user_id = $user->id;
-        // $rental->books_id = $book->id;
-        // $rental->status = 'Pending Review';
-        // $rental->rental_requested_at = now();
-        // $rental->save();
-
-        // $user = Auth::user();
-
-        // // Add necessary fields to the request
-        // $request->merge([
-        //     'user_id' => $user->id,
-        //     'books_id' => $book->id,
-        //     'status' => 'Pending Review',
-        //     'rental_requested_at' => now(),
-        // ]);
-
-        // // Now the validation will pass since we have added the required fields
-        // $validated = $request->validated();
-
-        // Create the rental record
-        // $rental = Rental::create($validated);
-        
-
-        // Redirect after successful creation
-        
-
-        // $rental = Rental::create([
-        //     'user_id' => $user->id,
-        //     'books_id' => $book->id,
-        //     'status' => 'Pending Review',
-        //     'rental_requested_at' => now(),
-        // ]);
-        
-        // if ($rental) {
-        //     \Log::info('Rental was created successfully', $rental->toArray());
-        // } else {
-        //     \Log::error('Rental creation failed.');
-        // }
-
-        // \Log::info('Rental Creation Attempt:', $rental->toArray());
-
-        // books()->rentals()->create($request->validated());
-
-        // $book->rentals()->create($request->validated());
-
-        // return redirect()->route('genres.index')->with('success', 'Rental requested successfully. Waiting for approval.');
-        // return view('genres.list');
-
-        // return redirect()->route('myrentals');
     }
 
     /**
@@ -162,11 +105,16 @@ class RentalController extends Controller
     {
         // $this->authorize('manage');
         $rental = Rental::findOrFail($id);
+
         $rental->update([
             'rental_start_at' => now(),
             'rental_due_at' => now()->addDays(7),
             'status' => 'Approved',
         ]);
+
+        $book = Books::findOrFail($rental->books_id);
+        $book->decrement('in_stock');
+
         return redirect()->route('rentals.pendinglist')->with('success', 'Rental approved successfully.');
     }
 
@@ -189,6 +137,10 @@ class RentalController extends Controller
             'returned_at' => now(),
             'status' => 'Returned',
         ]);
+
+        $book = Books::findOrFail($rental->books_id);
+        $book->increment('in_stock');
+
         return back()->with('success', 'Book returned successfully.');
     }
 
