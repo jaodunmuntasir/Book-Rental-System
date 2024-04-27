@@ -1,6 +1,16 @@
 # Book-Rental-System (BRS)
 Made with Laravel v11
 
+# Clone the Repo and Run the Following Commands
+composer install
+npm install
+npm run prod
+php artisan migrate:fresh
+php artisan db:seed
+php artisan serve
+
+# Use the Rentals-Optimized-Samples.csv under database\Rentals-Optimized-Samples.csv folder to perform proper testing
+
 In this system, there are functions accessible to anonymous users. They can search for books by author or title, list books by genre, and view the datasheet of a selected book.
 
 There are two types of users in this BRS: readers and librarians. As a registered and authenticated (logged in) reader, I can borrow a book, view my active book rentals, and view the details of a selected book rental. As a librarian, I have the ability to add, edit, or delete a book, add, edit, or delete a genre, list book rentals, view the details of a book rental, and change some status on a book rental, like status, deadline, note.
