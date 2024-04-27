@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('flashmsg')
+
 <link rel="stylesheet" href="/css/books/create.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 

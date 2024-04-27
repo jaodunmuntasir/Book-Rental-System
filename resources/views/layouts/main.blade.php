@@ -6,6 +6,7 @@
     <title>Book Rental System (BRS)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/searchbar.css" rel="stylesheet">
 
     @php
         $user = auth()->user();
@@ -71,9 +72,9 @@
                                 Rental Requests
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentalRequests">
-                                <li><a class="dropdown-item" href="#">Pending</a></li>
-                                <li><a class="dropdown-item" href="#">Approved</a></li>
-                                <li><a class="dropdown-item" href="#">Rejected</a></li>
+                                <li><a class="dropdown-item" href="/rentals/pendinglist">Pending</a></li>
+                                <li><a class="dropdown-item" href="/rentals/approvedlist">Approved</a></li>
+                                <li><a class="dropdown-item" href="/rentals/rejectedlist">Rejected</a></li>
                             </ul>
                         </li>
 
@@ -83,51 +84,29 @@
                                 Rentals List
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownRentalsList">
-                                <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Due Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">View All Rentals</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Reader Requests Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReaderRequests" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Reader Requests
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownReaderRequests">
-                                <li><a class="dropdown-item" href="#">Pending</a></li>
-                                <li><a class="dropdown-item" href="#">Approved</a></li>
-                                <li><a class="dropdown-item" href="#">Rejected</a></li>
+                                <li><a class="dropdown-item" href="/rentals/ongoinglist">Ongoing Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/returnedlist">Completed Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/overduelist">Overdue Rentals</a></li>
+                                <li><a class="dropdown-item" href="/rentals/all">View All Rentals</a></li>
                             </ul>
                         </li>
 
                         <!-- Readers List Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReadersList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/readers" id="navbarReadersList" role="button" aria-expanded="false">
                                 Readers List
                             </a>
-                            <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownReadersList">
-                                <li><a class="dropdown-item" href="#">Ongoing Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Completed Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">Due Rentals</a></li>
-                                <li><a class="dropdown-item" href="#">View All Renters</a></li>
-                            </ul> -->
                         </li>
                         @endif
                         @endauth
 
-                        <!-- Librarian Menu -->
+                        <!-- Librarians List Menu -->
                         @auth
                         @if($isAdmin)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLibrarian" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Librarian
+                        <li class="nav-item">
+                            <a class="nav-link" href="/librarians" id="navbarLibrariansList" role="button" aria-expanded="false">
+                                Librarians List
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownLibrarian">
-                                <li><a class="dropdown-item" href="#">Add New Librarian</a></li>
-                                <li><a class="dropdown-item" href="#">View All Librarian</a></li>
-                            </ul>
                         </li>
                         @endif
                         @endauth
@@ -139,6 +118,16 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2"></h1>
+
+                    <!-- Search Bar -->
+                    <div class="search-bar-container">
+                        <form action="{{ route('search.results') }}" method="GET">
+                            <input type="text" id="search-input" name="query" placeholder="Search for books, authors, genres..." autocomplete="off">
+                            <button type="submit"><img src="https://cdn-icons-png.flaticon.com/512/3771/3771554.png" alt="search-button-icon"></button>
+                            <ul id="suggestions-list"></ul>
+                        </form>
+                    </div>
+
                     <!-- Right-aligned items (Notifications and User Profile) -->
                     <div class="btn-toolbar mb-2 mb-md-0">
                         
@@ -164,7 +153,11 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item">{{ Auth::user()->name }}</a></li>
                                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
-                                <li><a class="dropdown-item" href="#">My Rentals</a></li>
+                                @auth
+                                @if($isReader)
+                                <li><a class="dropdown-item" href="/myrentals">My Rentals</a></li>
+                                @endif
+                                @endauth
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
@@ -202,7 +195,7 @@
 
                     </div>
                 </div>                
-
+                
                 @yield('content')
 
             </main>
@@ -210,6 +203,30 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search-input').on('input', function() {
+                var query = $(this).val();
+                $.ajax({
+                    url: "{{ route('search.suggestions') }}",
+                    data: { term: query },
+                    success: function(data) {
+                        var suggestionBox = $("#suggestions-list");
+                        suggestionBox.empty();
+
+                        $.each(data, function(index, suggestion) {
+                            suggestionBox.append(
+                                $("<li>").append(
+                                    $("<a>").attr("href", suggestion.url).text(suggestion.label)
+                                )
+                            );
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
     
 </body>
 </html>

@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('flashmsg')
+
 <link rel="stylesheet" href="/css/books/show.css">
 
 @php
@@ -36,6 +38,12 @@
                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-custom-size btn-primary">Edit</a>
                     @endif
                     @endauth
+                    @if($isReader)
+                    <form action="{{ route('books.rentals.store', $book->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-custom-size btn-primary">Rent Book</button>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

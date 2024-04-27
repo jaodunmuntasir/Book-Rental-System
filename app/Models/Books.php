@@ -24,7 +24,13 @@ class Books extends Model
         'language',
     ];
 
-    public function genres() {
+    public function genres() 
+    {
         return $this->belongsToMany(Genre::class, 'book_genre', 'book_id', 'genre_id');
-    }    
+    }
+
+    public function rentals(): HasMany
+    {
+        return $this->hasMany(Rental::class, 'books_id');
+    }
 }

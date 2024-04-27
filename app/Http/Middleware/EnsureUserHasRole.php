@@ -41,7 +41,7 @@ class EnsureUserHasRole
                 // You might want to redirect to a different route or show an error page
                 // depending on your application's requirements.
                 // For example, you could redirect to a '403 Forbidden' page, or to a page that explains the user lacks permission.
-                return redirect('/forbidden'); // This is a hypothetical route for the sake of example
+                return redirect('/forbidden');
             }
 
             // User is authenticated and has one of the roles, so proceed with the request.

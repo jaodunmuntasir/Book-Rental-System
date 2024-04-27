@@ -29,7 +29,7 @@ class RentalPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role === 'reader';
     }
 
     /**
@@ -37,7 +37,7 @@ class RentalPolicy
      */
     public function update(User $user, Rental $rental): bool
     {
-        //
+        return in_array($user->role, ['admin', 'librarian']);
     }
 
     /**
@@ -62,5 +62,13 @@ class RentalPolicy
     public function forceDelete(User $user, Rental $rental): bool
     {
         //
+    }
+
+    /**
+     * Determine whether the user can handle a rental administrative methods.
+     */
+    public function manage(User $user, Rental $rental): bool
+    {
+        return in_array($user->role, ['admin', 'librarian']);
     }
 }

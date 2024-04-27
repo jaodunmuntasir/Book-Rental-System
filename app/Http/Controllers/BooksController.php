@@ -30,7 +30,9 @@ class BooksController extends Controller
     public function create()
     {
         $this->authorize('create', Books::class);
+
         $genres = Genre::all();
+
         return view('books.create', compact('genres'));
     }
 
@@ -51,6 +53,7 @@ class BooksController extends Controller
     public function show(Books $book)
     {
         $genres = Genre::all();
+
         return view('books.show', [
             "book" => $book,
         ]);
@@ -62,6 +65,7 @@ class BooksController extends Controller
     public function edit(Books $book)
     {
         $this->authorize('update', $book);
+
         $book = Books::findOrFail($book->id);
         $genres = Genre::all();
         
@@ -82,7 +86,7 @@ class BooksController extends Controller
         $book->update($validatedData);
 
         // Update the book's genres. The 'genres' field should be an array of genre IDs.
-        // This assumes that the name of the input field for genres is 'genres' and it's an array.
+        // The name of the input field for genres is 'genres' and it's an array.
         // The `sync` method takes care of attaching, detaching, and updating relationships.
         if (isset($validatedData['genres'])) {
             $book->genres()->sync($validatedData['genres']);

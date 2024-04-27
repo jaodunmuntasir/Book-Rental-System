@@ -23,6 +23,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        DB::table('books')->truncate();
+        DB::table('genres')->truncate();
+        DB::table('rentals')->truncate();
+        DB::table('users')->truncate();
+
         \App\Models\User::factory(10)->create();
 
         $this->call([
@@ -31,6 +36,10 @@ class DatabaseSeeder extends Seeder
         
         $this->call([
             BooksSeeder::class,
+        ]);
+
+        $this->call([
+            RentalSeeder::class,
         ]);
     }
 }

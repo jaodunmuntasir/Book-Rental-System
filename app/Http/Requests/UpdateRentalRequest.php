@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class UpdateRentalRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class UpdateRentalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,11 @@ class UpdateRentalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'status' => ['required', 'string', 'in:Pending Review,Approved,Returned,Overdue,Cancelled'],
+            'rental_start_at' => ['nullable', 'date_format:Y-m-d\TH:i'], // Make sure the format matches the input
+            'rental_due_at' => ['nullable', 'date_format:Y-m-d\TH:i'], // Make sure the format matches the input
+            'returned_at' => ['nullable', 'date_format:Y-m-d\TH:i'], // Make sure the format matches the input
         ];
     }
+
 }
