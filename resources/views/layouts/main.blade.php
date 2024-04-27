@@ -99,17 +99,13 @@
                         @endif
                         @endauth
 
-                        <!-- Librarian Menu -->
+                        <!-- Librarians List Menu -->
                         @auth
                         @if($isAdmin)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLibrarian" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Librarian
+                        <li class="nav-item">
+                            <a class="nav-link" href="/librarians" id="navbarLibrariansList" role="button" aria-expanded="false">
+                                Librarians List
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownLibrarian">
-                                <li><a class="dropdown-item" href="#">Add New Librarian</a></li>
-                                <li><a class="dropdown-item" href="/librarians">View All Librarians</a></li>
-                            </ul>
                         </li>
                         @endif
                         @endauth

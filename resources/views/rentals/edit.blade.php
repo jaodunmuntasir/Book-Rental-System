@@ -29,6 +29,9 @@
                 <option {{ $rental->status == 'Overdue' ? 'selected' : '' }}>Overdue</option>
                 <option {{ $rental->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
             </select>
+            @error('status')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -39,16 +42,25 @@
         <div class="mb-3">
             <label for="rental_start_at" class="form-label">Rental Start Date and Time</label>
             <input type="datetime-local" class="form-control" id="rental_start_at" name="rental_start_at" value="{{ $rental->rental_start_at ? $rental->rental_start_at->format('Y-m-d\TH:i') : '' }}">
+            @error('rental_start_at')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="rental_due_at" class="form-label">Due Date and Time</label>
             <input type="datetime-local" class="form-control" id="rental_due_at" name="rental_due_at" value="{{ $rental->rental_due_at ? $rental->rental_due_at->format('Y-m-d\TH:i') : '' }}">
+            @error('rental_due_at')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="rental_returned_at" class="form-label">Returned Date and Time</label>
             <input type="datetime-local" class="form-control" id="rental_returned_at" name="rental_returned_at" value="{{ $rental->returned_at ? $rental->returned_at->format('Y-m-d\TH:i') : '' }}">
+            @error('rental_returned_at')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Update Rental</button>

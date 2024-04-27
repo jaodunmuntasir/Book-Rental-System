@@ -17,6 +17,7 @@
                 <th scope="col">User</th>
                 <th scope="col">Requested At</th>
                 <th scope="col">Rejected At</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,12 @@
                     <td>{{ $rental->user->name }}</td>
                     <td>{{ $rental->rental_requested_at}}</td>
                     <td>{{ $rental->updated_at}}</td>
+                    <td>
+                        <form action="{{ route('books.rentals.edit', ['book' => $rental->book->id, 'rental' => $rental->id]) }}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn-warning btn-sm">Edit Rental</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
 

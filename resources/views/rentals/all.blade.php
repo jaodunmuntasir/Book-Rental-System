@@ -19,6 +19,7 @@
                 <th scope="col">Start Date</th>
                 <th scope="col">Due Date</th>
                 <th scope="col">Return Date</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,12 @@
                     <td>{{ $rental->rental_start_at}}</td>
                     <td>{{ $rental->rental_due_at}}</td>
                     <td>{{ $rental->returned_at}}</td>
+                    <td>
+                        <form action="{{ route('books.rentals.edit', ['book' => $rental->book->id, 'rental' => $rental->id]) }}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn-warning btn-sm">Edit Rental</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
 

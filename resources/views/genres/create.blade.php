@@ -19,6 +19,9 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Genre Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="style" class="form-label">Style</label>
@@ -32,6 +35,9 @@
                                 <option value="light">Light</option>
                                 <option value="dark">Dark</option>
                             </select>
+                            @error('style')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-success">Create Genre</button>
                         <a href="{{ route('genres.create') }}" class="btn btn-secondary">Cancel</a>
