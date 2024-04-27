@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource("books", BooksController::class);
 Route::resource("genres", GenreController::class);
+Route::get('/search/suggestions', [UtilityController::class, 'searchSuggetions'])->name('search.suggestions');
+Route::get('/search/results', [UtilityController::class, 'searchResults'])->name('search.results');
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::resource("books.rentals", RentalController::class);

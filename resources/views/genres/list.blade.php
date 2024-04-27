@@ -4,6 +4,11 @@
 
 @include('flashmsg')
 
+<link rel="stylesheet" href="/css/tables.css">
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
 @php
     $user = auth()->user();
     $isAdmin = $user && ($user->role === 'admin');
@@ -19,7 +24,7 @@
                     <h5>Genres List</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table id="table1" class="table table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
@@ -58,5 +63,27 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#table1').DataTable({
+            "paging": false,   // Disables pagination
+            "searching": true, // Disables the search bar
+            "info": false     // Disables the information text
+        });
+
+        // Event listener to the search box to perform search
+        $('#table_search').keyup(function(){
+            table.search($(this).val()).draw(); // Search and redraw the table
+        });
+    });
+</script>
+
 
 @endsection

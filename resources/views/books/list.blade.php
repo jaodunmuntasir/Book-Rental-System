@@ -4,10 +4,14 @@
 
 @include('flashmsg')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
 <link rel="stylesheet" href="/css/books/list.css">
+<link rel="stylesheet" href="/css/tables.css">
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
 
 @php
     $user = auth()->user();
@@ -24,7 +28,8 @@
                     <h4 class="mb-0">List of Books</h4>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
+                <!-- <input type="text" id="table_search" class="form-control mb-3" placeholder="Search table..."> -->
+                    <table id="table1" class="table table-hover mb-0">
                         <thead class="thead-light">
                             <tr style=text-align:center>
                                 <th>Cover</th>
@@ -96,15 +101,25 @@
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 
-<!-- <script>
+<script>
     $(document).ready(function() {
-        $('.table').DataTable();
+        var table = $('#table1').DataTable({
+            "paging": false,   // Disables pagination
+            "searching": true, // Disables the search bar
+            "info": false     // Disables the information text
+        });
+
+        // Event listener to the search box to perform search
+        $('#table_search').keyup(function(){
+            table.search($(this).val()).draw(); // Search and redraw the table
+        });
     });
-</script> -->
+</script>
 
 
 @endsection

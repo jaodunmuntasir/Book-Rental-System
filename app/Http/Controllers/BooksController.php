@@ -16,11 +16,31 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Books::all();
-        $genres = Genre::all();  // Retrieve all genres from the database
+        // $books = Books::all();
+        // $genres = Genre::all();  // Retrieve all genres from the database
 
+        // return view('books.list', [
+        //     "books" => $books ,
+        // ]);
+
+        // Start with a general query
+        $query = Books::query();
+
+        // If there is an 'author' query parameter, adjust the query to filter by author
+        if ($request->has('author')) {
+            $query->where('author', 'like', '%' . $request->input('author') . '%');
+        }
+
+        // Execute the query
+        $books = $query->get();
+
+        // Retrieve all genres (if you still need this for a sidebar or filter options)
+        $genres = Genre::all();
+
+        // Return the view with the books and genres
         return view('books.list', [
-            "books" => $books ,
+            "books" => $books,
+            "genres" => $genres
         ]);
     }
 
