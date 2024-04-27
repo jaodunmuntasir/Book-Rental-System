@@ -36,6 +36,7 @@ class RentalController extends Controller
      */
     public function store(StoreRentalRequest $request, Books $book)
     {
+        $this->authorize('create', Rental::class);
         
         if ($book->in_stock <= 0) {
             return back()->with('error', 'This book is currently not available for rent.');

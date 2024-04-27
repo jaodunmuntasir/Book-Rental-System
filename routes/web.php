@@ -37,6 +37,9 @@ Route::get('/search/results', [UtilityController::class, 'searchResults'])->name
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::resource("books.rentals", RentalController::class);
+});
+
+Route::middleware(['auth','verified', 'role:reader'])->group(function () {
     Route::get('/myrentals', [RentalController::class, 'myRentals'])->name('myrentals');
     Route::patch('/rentals/{rental}/return', [RentalController::class, 'returnBook'])->name('rentals.return');
     Route::patch('/rentals/{rental}/cancel', [RentalController::class, 'cancelRentalRequest'])->name('rentals.cancelrequest');
@@ -63,7 +66,9 @@ Route::middleware(['auth','verified', 'role:admin,librarian'])->group(function (
 
     Route::get('/readers', [ProfileController::class, 'showReaders'])->name('readers.showreaders');
     Route::get('/readers/{user}/rentals', [RentalController::class, 'showReaderRentals'])->name('readers.rentals');
+});
 
+Route::middleware(['auth','verified', 'role:admin'])->group(function () {
     Route::get('/librarians', [ProfileController::class, 'showLibrarians'])->name('librarians.showlibrarians');
     Route::patch('/librarians/{user}/delete', [ProfileController::class, 'changeLibrarianToReader'])->name('librarians.deletelibrarian');
     Route::patch('/readers/{user}/promote', [ProfileController::class, 'changeReaderToLibrarian'])->name('readers.promotelibrarian');
