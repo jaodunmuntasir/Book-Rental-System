@@ -26,7 +26,11 @@
                 <th>Email</th>
                 <th>Profile Creation Date</th>
                 <th>Actions</th>
+                @auth
+                @if ($isAdmin)
                 <th>Admin Actions</th>
+                @endif
+                @endauth
             </tr>
         </thead>
         <tbody>
